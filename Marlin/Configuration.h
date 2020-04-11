@@ -403,6 +403,9 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
+// evilC change
+// Hemera uses different Temp Sensor to stock, so override
+//#define TEMP_SENSOR_0 1
 #define TEMP_SENSOR_0 5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
@@ -442,6 +445,9 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
+// evilC change
+// Hemera goes hotter than stock, so override
+//#define HEATER_0_MAXTEMP 275
 #define HEATER_0_MAXTEMP 300
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
@@ -473,6 +479,11 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Creality Ender-3
+  // evilC change
+  // Hemera has different heater than stock, override
+  // #define DEFAULT_Kp 21.73
+  // #define DEFAULT_Ki 1.54
+  // #define DEFAULT_Kd 76.55
   #define DEFAULT_Kp 34.98
   #define DEFAULT_Ki 3.83
   #define DEFAULT_Kd 79.92
@@ -710,6 +721,9 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
+// evilC change
+// Hemera uses different E stepper, so override
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
 #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 409 }
 
 /**
@@ -808,6 +822,8 @@
  *
  * Enable this option for a probe connected to the Z Min endstop pin.
  */
+// evilC change
+//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 /**
@@ -858,6 +874,8 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
+// evilC change
+//#define BLTOUCH
 #define BLTOUCH
 
 /**
@@ -930,10 +948,12 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { -35, -34, -2.25 }
+// evilC change
+// Hemera fan BLTouch mount
+#define NOZZLE_TO_PROBE_OFFSET { -31, -35, -2.65 }
 
 // Certain types of probes need to stay away from edges
-#define MIN_PROBE_EDGE 10
+#define MIN_PROBE_EDGE 0
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -1061,11 +1081,20 @@
 // @section machine
 
 // The size of the print bed
+// evilC change
+// Reduce X bed size, as the mount I use has extra material to right of Hemera
+// Mount could probably be remixed to remove this extra space
+//#define X_BED_SIZE 235
 #define X_BED_SIZE 215
-#define Y_BED_SIZE 207
+// Due to Y_MIN_POS being changed to -27 to keep nozzle always over bed, this needs to be reduced too
+//#define Y_BED_SIZE 235
+#define Y_BED_SIZE 215
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
+// evilC change
+// Hemera mount is deeper than stock, so override this to keep nozzle always over bed
+//#define Y_MIN_POS 0
 #define Y_MIN_POS -27
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
@@ -1173,6 +1202,7 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
+// evilC change
 #define AUTO_BED_LEVELING_BILINEAR
 //#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
@@ -1220,7 +1250,9 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 3
+  // evilC change
+  #define GRID_MAX_POINTS_X 5
+  //#define GRID_MAX_POINTS_X 3
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -1325,6 +1357,8 @@
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
 // - Prevent Z homing when the Z probe is outside bed area.
 //
+// evilC change
+//#define Z_SAFE_HOMING
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)

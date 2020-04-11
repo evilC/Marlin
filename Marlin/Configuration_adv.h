@@ -1465,6 +1465,10 @@
   //#define MIN_PROBE_EDGE_RIGHT MIN_PROBE_EDGE
   //#define MIN_PROBE_EDGE_FRONT MIN_PROBE_EDGE
   //#define MIN_PROBE_EDGE_BACK MIN_PROBE_EDGE
+  // evilC change
+  // Overridde front, to avoid hitting clips holding glass bed.
+  // Rear not an issue as Hemera Y_BED_SIZE / Y_MIN_POS changes stop extruder going anywhere near rear
+  #define MIN_PROBE_EDGE_FRONT 10
 #endif
 
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
