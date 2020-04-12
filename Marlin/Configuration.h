@@ -950,7 +950,7 @@
  */
 // evilC change
 // Hemera fan BLTouch mount
-#define NOZZLE_TO_PROBE_OFFSET { -31, -35, -2.65 }
+#define NOZZLE_TO_PROBE_OFFSET { -31, -35, -2.75 }
 
 // Certain types of probes need to stay away from edges
 #define MIN_PROBE_EDGE 0
