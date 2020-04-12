@@ -1465,10 +1465,6 @@
   //#define MIN_PROBE_EDGE_RIGHT MIN_PROBE_EDGE
   //#define MIN_PROBE_EDGE_FRONT MIN_PROBE_EDGE
   //#define MIN_PROBE_EDGE_BACK MIN_PROBE_EDGE
-  // evilC change
-  // Overridde front, to avoid hitting clips holding glass bed.
-  // Rear not an issue as Hemera Y_BED_SIZE / Y_MIN_POS changes stop extruder going anywhere near rear
-  #define MIN_PROBE_EDGE_FRONT 10
 #endif
 
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
@@ -1477,6 +1473,10 @@
   //#define MESH_MIN_Y MESH_INSET
   //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
   //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
+  // evilC change
+  // Use custom NOZZLE_TO_PROBE_OFFSET_X and NOZZLE_TO_PROBE_OFFSET_Y defines to calculate MESH_MAX_X and MESH_MAX_Y
+  #define MESH_MAX_X X_BED_SIZE - ((NOZZLE_TO_PROBE_OFFSET_X * -1) + MESH_INSET)
+  #define MESH_MAX_Y Y_BED_SIZE - ((NOZZLE_TO_PROBE_OFFSET_Y * -1) + MESH_INSET)
 #endif
 
 /**
